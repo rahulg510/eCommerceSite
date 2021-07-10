@@ -1,11 +1,14 @@
+import userEvent from '@testing-library/user-event';
 import React from 'react'
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import {useProductsContext} from "../context/products_context";
 
 const CartButton = () => {
+  const {closeSidebar} = useProductsContext();
   return <Wrapper className='cart-btn-wrapper'>
-      <Link to="/cart" className="cart-btn">
+      <Link to="/cart" onClick={closeSidebar} className="cart-btn">
         Cart
         <span className="cart-container">
             <FaShoppingCart/>
