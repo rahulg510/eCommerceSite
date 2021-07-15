@@ -42,3 +42,8 @@ export const services = [
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
 	},
 ];
+
+
+export const productsUrl = 'http://localhost:3001'
+
+export const singleProductUrl = `localhost:3001/single-product?id=`
