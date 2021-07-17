@@ -1,6 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { HomePage, AboutPage, ErrorPage, CheckoutPage } from "./pages";
+import {
+	HomePage,
+	AboutPage,
+	ErrorPage,
+	CheckoutPage,
+	SingleProductPage,
+	ProductsPage,
+} from "./pages";
 import { Navbar, Sidebar, Footer } from "./components";
 
 function App() {
@@ -18,6 +25,13 @@ function App() {
 				<Route exact path="/checkout">
 					<CheckoutPage />
 				</Route>
+				<Route path="/products">
+					<ProductsPage />
+				</Route>
+				<Route
+					path="/products/:id"
+					children={<SingleProductPage />}
+				></Route>
 				<Route path="*">
 					<ErrorPage />
 				</Route>

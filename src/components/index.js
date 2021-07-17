@@ -6,5 +6,36 @@ import Hero from "./Hero";
 import Services from "./Services";
 import Contact from "./Contact";
 import FeaturedProducts from "./FeaturedProducts";
+import Error from "./Error";
+import Loading from "./Loading";
+import ProductImages from "./ProductImages";
+import Stars from "./Stars";
+import AddToCart from "./AddToCart";
+import AmountButtons from "./AmountButtons";
+import Filters from "./Filters";
+import Sort from "./Sort";
+import ProductList from "./ProductList";
+import GridView from "./GridView";
+import ListView from "./ListView";
 
-export { Navbar, Sidebar, Footer, PageHero, Services, Hero, Contact, FeaturedProducts };
+export {
+	Navbar,
+	Sidebar,
+	Footer,
+	PageHero,
+	Services,
+	Hero,
+	Contact,
+	FeaturedProducts,
+	Error,
+	Loading,
+    ProductImages,
+	Stars,
+	AddToCart,
+	AmountButtons,
+	Filters,
+	Sort,
+	ProductList,
+	GridView,
+	ListView
+};

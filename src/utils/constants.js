@@ -46,4 +46,4 @@ export const services = [
 
 export const productsUrl = 'http://localhost:3001'
 
-export const singleProductUrl = `localhost:3001/single-product?id=`
+export const singleProductUrl = `http://localhost:3001/single-product?id=`
