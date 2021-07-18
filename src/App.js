@@ -32,6 +32,9 @@ function App() {
 					path="/products/:id"
 					children={<SingleProductPage />}
 				></Route>
+				<Route path="/cart" exact>
+					
+				</Route>
 				<Route path="*">
 					<ErrorPage />
 				</Route>

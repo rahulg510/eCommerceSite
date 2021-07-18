@@ -53,16 +53,6 @@ const SingleProductPage = () => {
 		colors,
 	} = product;
 
-	console.log(name,
-		price,
-		description,
-		stock,
-		stars,
-		reviews,
-		sku,
-		company,
-		images,
-		colors,);
 	return (
 		<Wrapper>
 			<PageHero title={name} product />

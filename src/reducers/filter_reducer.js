@@ -24,8 +24,12 @@ const filter_reducer = (state, action) => {
 			...state,
 			allProducts: action.payload,
 			filteredProducts: [...filteredProducts],
-			minPrice: min,
-			maxPrice: max,
+			filters: {
+				...state.filters,
+				minPrice: min,
+				maxPrice: max,
+				price: max,
+			},
 		};
 	}
 	if (action.type === SET_LISTVIEW) {
@@ -37,69 +41,88 @@ const filter_reducer = (state, action) => {
 
 	if (action.type === SORT_PRODUCTS) {
 		let sort = action.payload;
-		let minPrice = 0,
-			maxPrice = 0;
 		let { filteredProducts } = state;
 		if (sort === "name-a") {
 			filteredProducts = filteredProducts.sort((a, b) => {
 				return a.name <= b.name ? -1 : 1;
 			});
-
-			filteredProducts.forEach((product) => {
-				if (product.price > maxPrice) {
-					maxPrice = product.price;
-				}
-				if (product.price < minPrice) {
-					minPrice = product.price;
-				}
-			});
 		} else if (sort === "name-z") {
 			filteredProducts = filteredProducts.sort((a, b) => {
 				return a.name <= b.name ? 1 : -1;
-			});
-
-			filteredProducts.forEach((product) => {
-				if (product.price > maxPrice) {
-					maxPrice = product.price;
-				}
-				if (product.price < minPrice) {
-					minPrice = product.price;
-				}
 			});
 		} else if (sort === "price-highest") {
 			filteredProducts = filteredProducts.sort((a, b) => {
 				return b.price - a.price;
 			});
-			if (filteredProducts.length > 0) {
-				minPrice = filteredProducts[filteredProducts.length - 1].price;
-				maxPrice = filteredProducts[0].price;
-			}
 		} else {
 			filteredProducts = filteredProducts.sort((a, b) => {
 				return a.price - b.price;
 			});
-			if (filteredProducts.length > 0) {
-				maxPrice = filteredProducts[filteredProducts.length - 1].price;
-				minPrice = filteredProducts[0].price;
-			}
 		}
 
 		return {
 			...state,
 			filteredProducts: [...filteredProducts],
-			filters: { ...state.filters, minPrice, maxPrice},
-			sort
+			filters: { ...state.filters },
+			sort,
 		};
 	}
 
-	if(action.type === UPDATE_FILTERS){
-		if(action.payload){
-			const {filterChanged, value} = action.payload;
+	if (action.type === UPDATE_FILTERS) {
+		if (action.payload) {
+			const { filterChanged, value } = action.payload;
 			return {
-				...state, filters: {...state.filters, [filterChanged]:value}
-			}
+				...state,
+				filters: { ...state.filters, [filterChanged]: value },
+			};
 		}
 		return state;
+	}
+
+	if (action.type === CLEAR_FILTERS) {
+		return {
+			...state,
+			filters: {
+				...state.filters,
+				text: "",
+				company: "all",
+				category: "all",
+				color: "all",
+				price: state.filters.maxPrice,
+				shipping: false,
+			},
+		};
+	}
+
+	if (action.type === FILTER_PRODUCTS) {
+		const {
+			text,
+			company,
+			category,
+			color,
+			price,
+			shipping,
+		} = state.filters;
+
+		let filteredProducts = [...state.allProducts];
+		filteredProducts = filteredProducts.filter((product) => {
+			return (
+				(color === "all" || product.colors.includes(color)) &&
+				(category === "all" || product.category === category) &&
+				(company === "all" || product.company === company) &&
+				product.price <= price &&
+				product.name.toLowerCase().indexOf(text.toLowerCase()) > -1 &&
+				(shipping === false || product.shipping === shipping)
+			);
+		});
+
+		return {
+			...state,
+			filteredProducts,
+			filters: {
+				...state.filters,
+			},
+		};
 	}
 	throw new Error(`No Matching "${action.type}" - action type`);
 };

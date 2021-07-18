@@ -17,14 +17,15 @@ const initialState = {
 	gridView: true,
 	sort: "price-lowest",
 	filters: {
-		text: '',
+		text: "",
 		company: "all",
 		category: "all",
 		color: "all",
+		price: 0,
 		minPrice: 0,
 		maxPrice: 0,
-		shipping: false
-	}
+		shipping: false,
+	},
 };
 
 const FilterContext = React.createContext();
@@ -38,9 +39,9 @@ export const FilterProvider = ({ children }) => {
 	}, [products]);
 
 	useEffect(() => {
-		dispatch({type: UPDATE_FILTERS});
-		dispatch({type: SORT_PRODUCTS});
-	}, [])
+		dispatch({ type: UPDATE_FILTERS });
+		dispatch({ type: SORT_PRODUCTS });
+	}, []);
 
 	const setView = (grid) => {
 		if (grid === true) dispatch({ type: SET_GRIDVIEW });
@@ -49,16 +50,23 @@ export const FilterProvider = ({ children }) => {
 		}
 	};
 
-	const updateFilters = (e) =>{
+	const updateFilters = (e) => {
 		const filterChanged = e.target.name;
-		const value = e.target.value || e.target.textContent;
-		console.log(filterChanged, value);
-		dispatch({type: UPDATE_FILTERS, payload:{filterChanged, value}})
-	}
+		let value = e.target.value;
+		if (filterChanged === "category") value = e.target.textContent;
+		if (filterChanged === "color") value = e.target.dataset.color;
+		if (filterChanged === "price") value = Number(value);
+		if (filterChanged === "shipping") value = e.target.checked;
+		dispatch({ type: UPDATE_FILTERS, payload: { filterChanged, value } });
+		dispatch({ type: FILTER_PRODUCTS });
+		dispatch({ type: SORT_PRODUCTS, payload: state.sort });
+	};
 
-	const clearFilters = () =>{
-
-	}
+	const clearFilters = () => {
+		dispatch({ type: CLEAR_FILTERS });
+		dispatch({ type: FILTER_PRODUCTS });
+		dispatch({ type: SORT_PRODUCTS, payload: state.sort });
+	};
 
 	const sortProducts = (e) => {
 		let sort = e.target.value;
@@ -66,7 +74,15 @@ export const FilterProvider = ({ children }) => {
 	};
 
 	return (
-		<FilterContext.Provider value={{ ...state, setView, sortProducts, clearFilters, updateFilters }}>
+		<FilterContext.Provider
+			value={{
+				...state,
+				setView,
+				sortProducts,
+				clearFilters,
+				updateFilters,
+			}}
+		>
 			{children}
 		</FilterContext.Provider>
 	);
