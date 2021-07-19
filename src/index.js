@@ -6,16 +6,23 @@ import reportWebVitals from "./reportWebVitals";
 import { ProductsProvider } from "./context/products_context";
 import { FilterProvider } from "./context/filter_context";
 import { CartProvider } from "./context/cart_context";
-
+import { Auth0Provider } from "@auth0/auth0-react";
+import authConfig from "./Auth0Config.json";
 ReactDOM.render(
 	<React.StrictMode>
-		<ProductsProvider>
-			<FilterProvider>
-				<CartProvider>
-					<App />
-				</CartProvider>
-			</FilterProvider>
-		</ProductsProvider>
+		<Auth0Provider
+			domain={authConfig.DOMAIN}
+			clientId={authConfig.CLIENT_ID}
+			redirectUri={authConfig.REDIRECT}
+		>
+			<ProductsProvider>
+				<FilterProvider>
+					<CartProvider>
+						<App />
+					</CartProvider>
+				</FilterProvider>
+			</ProductsProvider>
+		</Auth0Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

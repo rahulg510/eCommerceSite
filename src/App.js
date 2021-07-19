@@ -7,6 +7,7 @@ import {
 	CheckoutPage,
 	SingleProductPage,
 	ProductsPage,
+	CartPage
 } from "./pages";
 import { Navbar, Sidebar, Footer } from "./components";
 
@@ -33,7 +34,7 @@ function App() {
 					children={<SingleProductPage />}
 				></Route>
 				<Route path="/cart" exact>
-					
+					<CartPage/>
 				</Route>
 				<Route path="*">
 					<ErrorPage />
