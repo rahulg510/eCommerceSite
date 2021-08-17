@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/products_reducer";
-import { productsUrl as url, singleProductUrl } from "../utils/constants";
-import {useAuth0} from "@auth0/auth0-react";
+import { PRODUCTS_URL } from "../utils/constants";
 import {
 	SIDEBAR_OPEN,
 	SIDEBAR_CLOSE,
@@ -29,7 +28,6 @@ const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const {getAccessTokenSilently} = useAuth0();
 
 
 	const openSidebar = () => {
@@ -40,16 +38,10 @@ export const ProductsProvider = ({ children }) => {
 		dispatch({ type: SIDEBAR_CLOSE });
 	};
 
-	const fetchProducts = async (url) => {
-		url = url + "/products";
+	const fetchProducts = async () => {
 		dispatch({ type: GET_PRODUCTS_BEGIN });
 		try {
-			let token = await getAccessTokenSilently();
-			const response = await axios.get(url,{
-				headers:{
-					Authorization: `Bearer ${token}`
-				}
-			});
+			const response = await axios.get(PRODUCTS_URL);
 			const products = response.data;
 			dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
 		} catch (error) {
@@ -60,7 +52,11 @@ export const ProductsProvider = ({ children }) => {
 	const fetchSingleProduct = async (id) => {
 		dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
 		try {
-			const res = await axios.get(`${singleProductUrl}${id}`);
+			const res = await axios.get(`${PRODUCTS_URL}/single-product/`,{
+				params: {
+					id
+				}
+			});
 			dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: res.data });
 		} catch (error) {
 			dispatch({ type: GET_SINGLE_PRODUCT_ERROR, payload: error });
@@ -68,7 +64,7 @@ export const ProductsProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
-		fetchProducts(url);
+		fetchProducts(PRODUCTS_URL);
 	}, []);
 
 	return (

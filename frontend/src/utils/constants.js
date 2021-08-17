@@ -43,7 +43,12 @@ export const services = [
 	},
 ];
 
+const HOST = "http://localhost";
+const PRODUCTS_PORT = ":3001";
+const USER_PORT = ":3002";
+const USER = "/user";
+const CART = "/cart";
+const PRODUCTS = "/products";
 
-export const productsUrl = 'http://localhost:3001'
-
-export const singleProductUrl = `http://localhost:3001/single-product?id=`
+export const PRODUCTS_URL = HOST + PRODUCTS_PORT + PRODUCTS;
+export const CART_URL = HOST + USER_PORT + USER + CART;

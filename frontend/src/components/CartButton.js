@@ -15,7 +15,7 @@ const CartButton = () => {
 				Cart
 				<span className="cart-container">
 					<FaShoppingCart />
-					<span className="cart-value">{totalItems}</span>
+					{totalItems > 0 && <span className="cart-value">{totalItems}</span>}
 				</span>
 			</Link>
 			{!isAuthenticated ? (

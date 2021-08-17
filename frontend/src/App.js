@@ -10,6 +10,7 @@ import {
 	CartPage,
 	PrivateRoute,
 	AuthWrapper,
+	AccountPage
 } from "./pages";
 import { Navbar, Sidebar, Footer } from "./components";
 
@@ -28,6 +29,9 @@ function App() {
 					</Route>
 					<PrivateRoute exact path="/checkout">
 						<CheckoutPage />
+					</PrivateRoute>
+					<PrivateRoute exact path="/account">
+						<AccountPage />
 					</PrivateRoute>
 					<Route path="/products" exact>
 						<ProductsPage />

@@ -35,7 +35,7 @@ const Navbar = () => {
 					})}
 					{isAuthenticated && (
 						<li>
-							<Link to="/checkout">Checkout</Link>
+							<Link to="/account">My Account</Link>
 						</li>
 					)}
 				</ul>

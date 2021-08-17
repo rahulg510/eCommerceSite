@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ProductsProvider } from "./context/products_context";
 import { FilterProvider } from "./context/filter_context";
 import { CartProvider } from "./context/cart_context";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider} from "@auth0/auth0-react";
 import authConfig from "./Auth0Config.json";
 ReactDOM.render(
 	<React.StrictMode>
@@ -14,9 +14,10 @@ ReactDOM.render(
 			domain={authConfig.DOMAIN}
 			clientId={authConfig.CLIENT_ID}
 			redirectUri={authConfig.REDIRECT}
-			cacheLocation={authConfig.CACHE_LOCATION}
 			audience={authConfig.AUDIENCE}
 			scope={authConfig.SCOPE}
+			useRefreshTokens={true}
+			cacheLocation={authConfig.CACHE_LOCATION}
 		>
 				<ProductsProvider>
 					<FilterProvider>

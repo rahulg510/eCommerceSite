@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const morgan = require("morgan");
+const jwtCheck = require("./config/auth0");
 const productsRouter = require("./routes/products");
 
 dotenv.config({ path: "./config/config.env" });
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
+app.use(jwtCheck);
 if(process.env.NODE_ENV === "development"){
 	app.use(morgan("dev"));
 }

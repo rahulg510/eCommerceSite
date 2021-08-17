@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../utils/helpers";
 
-const Product = ({ image, name, price, id }) => {
+const Product = ({ image, name, price, _id:id }) => {
 	return (
 		<Wrapper>
 			<div className="container">

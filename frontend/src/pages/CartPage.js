@@ -5,7 +5,24 @@ import { Link } from "react-router-dom";
 import { CartContent, PageHero } from "../components";
 
 const CartPage = () => {
-	const { cart } = useCartContext();
+	const { cart, loading, cartError } = useCartContext();
+	if (loading || cartError) {
+		return (
+			<Wrapper className="page-100">
+				<div className="empty">
+					{cartError ? (
+						<h2>Opps, an error occured. Try Again!</h2>
+					) : loading ? (
+						<h2>Loading...</h2>
+					) : ""
+					}
+					<Link to="/products" className="btn">
+						Shop
+					</Link>
+				</div>
+			</Wrapper>
+		);
+	}
 	if (cart.length === 0) {
 		return (
 			<Wrapper className="page-100">

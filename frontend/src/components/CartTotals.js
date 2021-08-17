@@ -30,7 +30,7 @@ const CartTotals = () => {
 					</Link>
 				) : (
 					<button onClick={loginWithRedirect} type="btn" className="btn">
-						Login
+						Login to checkout
 					</button>
 				)}
 			</div>

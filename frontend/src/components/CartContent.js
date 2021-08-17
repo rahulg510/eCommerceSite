@@ -12,7 +12,7 @@ const CartContent = () => {
 		<Wrapper className="section section-center">
 			<CartColumns />
 			{cart.map((item) => {
-				return <CartItem key={item.id} {...item} />
+				return <CartItem key={item._id + item.color} {...item} />
 			})}
 			<hr />
 			<div className="link-container">
