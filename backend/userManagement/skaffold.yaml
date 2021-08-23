@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta21
+kind: Config
+metadata:
+  name: usermanagement
+build:
+  artifacts:
+  - image: rahulg510/e-com-users
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - user-deployment.yml

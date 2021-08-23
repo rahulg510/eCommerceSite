@@ -1,6 +1,6 @@
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
-const dotenv = require("dotenv").config({path: "./config/config.env"})
+require("dotenv").config({path: "./config/config.env"})
 
 const AUTH_ALGORITHMS = JSON.parse(process.env.AUTH_ALGORITHMS);
 const jwtCheck = jwt({

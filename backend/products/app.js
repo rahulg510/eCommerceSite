@@ -22,7 +22,7 @@ if(process.env.NODE_ENV === "development"){
 //routes
 app.use("/products", productsRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
 	console.log(
 		`app is listening on port ${PORT} in ${process.env.NODE_ENV} mode`

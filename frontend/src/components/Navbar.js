@@ -2,7 +2,7 @@ import React from "react";
 import CartButton from "./CartButton";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "..//assets/logo.svg";
+import logo from "..//assets/logo.png";
 import { FaBars } from "react-icons/fa";
 import { links } from "../utils/constants";
 import { useProductsContext } from "../context/products_context";

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { formatPrice } from "../utils/helpers";
 import { Link } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+
 const ListView = ({ products }) => {
 	return (
 		<Wrapper>
@@ -9,7 +11,18 @@ const ListView = ({ products }) => {
 				{products.map((product) => {
 					return (
 						<article key={product._id}>
-							<img src={product.image} alt={product.name} />
+							<div className="container">
+								<img
+									src={product.images[0].url}
+									alt={product.name}
+								/>
+								<Link
+									to={`/products/${product._id}`}
+									className="link"
+								>
+									<FaSearch />
+								</Link>
+							</div>
 							<div>
 								<h4>{product.name}</h4>
 								<h5 className="price">
@@ -35,6 +48,41 @@ const Wrapper = styled.section`
 	display: grid;
 	row-gap: 3rem;
 
+	.container {
+		position: relative;
+		border-radius: var(--radius);
+	}
+	
+	.link {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: var(--clr-primary-5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		transition: var(--transition);
+		opacity: 0;
+		cursor: pointer;
+		svg {
+			font-size: 1.25rem;
+			color: var(--clr-white);
+		}
+	}
+	.container:hover img {
+		opacity: 0.5;
+	}
+	.container:hover .link {
+		opacity: 1;
+	}
+    .product-name {
+        color: black;
+        text-decoration: underline;
+    }
 	img {
 		width: 100%;
 		display: block;
@@ -42,6 +90,7 @@ const Wrapper = styled.section`
 		height: 200px;
 		object-fit: cover;
 		border-radius: var(--radius);
+		transition: var(--transition);
 		margin-bottom: 1rem;
 	}
 	h4 {

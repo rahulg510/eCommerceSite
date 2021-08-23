@@ -11,7 +11,7 @@ const PrivateRoute = ({ children, ...rest }) => {
 				return isAuthenticated ? (
 					children
 				) : (
-					<Redirect to="/cart"></Redirect>
+					<Redirect to="/products"></Redirect>
 				);
 			}}
 		></Route>

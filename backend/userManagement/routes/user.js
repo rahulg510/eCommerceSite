@@ -1,20 +1,39 @@
 const router = require("express").Router();
 const User = require("../models/User");
+// const redisClient = require('../config/redis');
+
+// const redisMiddleware = (req,res,next) => {
+// 	const id = req.user.sub;
+// 	redisClient.get(`${id}-cart`, (err,data)=>{
+// 		if(err || data === null){
+// 			next();
+// 		}
+// 		else{
+// 			let cart = JSON.parse(data);
+// 			res.json(cart).status(200);
+// 		}
+
+// 	})
+// }
 
 router.get("/", async (req, res) => {
 	//await Product.find({ owner: req.user.sub }).lean();
 	return res.json([]);
 });
 
-router.get("/cart", async (req, res) => {
-	try{
+router.get("/cart" ,async (req, res) => {
+	try {
 		let id = req.user.sub;
-		let user = await User.findOneAndUpdate({id}, {}, {upsert:true, new: true, setDefaultsOnInsert: true}).lean();
-		res.json(user.cart);
-	}
-	catch(error){
+		let user = await User.findOneAndUpdate(
+			{ id },
+			{},
+			{ upsert: true, new: true, setDefaultsOnInsert: true }
+		).lean();
+		// redisClient.setex(`${id}-cart`, 3600, JSON.stringify(user.cart));
+		res.json(user.cart).status(200);
+	} catch (error) {
 		console.error(error);
-		res.status(404);
+		res.status(500);
 	}
 });
 
@@ -22,52 +41,47 @@ router.post("/cart", async (req, res) => {
 	try {
 		const id = req.user.sub;
 		let cart = req.body.cart;
-		let user = await User.findOneAndUpdate({id}, {cart}, {new: true, upsert: true, setDefaultsOnInsert: true} ).lean();
-		res.json(user.cart);
+		let user = await User.findOneAndUpdate(
+			{ id },
+			{ cart },
+			{ new: true, upsert: true, setDefaultsOnInsert: true }
+		).lean();
+		// redisClient.setex(`${id}-cart`, 3600, JSON.stringify(user.cart));
+		res.json(user.cart).status(201);
 	} catch (error) {
 		console.error(error);
-		res.status(404);
+		res.status(500);
 	}
 });
 
-router.delete("/", async (req, res) => {
-	const { id } = req.body;
-	const user = req.user.sub;
+router.get("/orders", async (req, res) => {
 	try {
-		let product = await Product.findOneAndDelete({
-			_id: id,
-			owner: user,
-		}).lean();
-		if (product) {
-			res.json(product);
-		} else {
-			res.json({ status: "404" });
-		}
-	} catch (err) {
-		console.error(err);
-		res.json({ status: "error" });
-	}
-});
-
-router.put("/", async (req, res) => {
-	const { _id, ...rest } = req.body;
-	const user = req.user.sub;
-	console.log(_id, rest);
-	try {
-		let product = await Product.findOneAndUpdate(
-			{ _id, owner: user },
-			{
-				...rest,
-			}
+		let id = req.user.sub;
+		let user = await User.findOneAndUpdate(
+			{ id },
+			{},
+			{ upsert: true, new: true, setDefaultsOnInsert: true }
 		).lean();
-		if (product) {
-			res.json(product);
-		} else {
-			res.json({ status: "404" });
-		}
-	} catch (err) {
-		console.error(err);
-		res.json({ status: "error" });
+		res.json(user.orders).status(200);
+	} catch (error) {
+		console.error(error);
+		res.status(500);
+	}
+});
+
+router.post("/orders", async (req, res) => {
+	try {
+		const id = req.user.sub;
+		let order = req.body.order;
+		let user = await User.findOneAndUpdate(
+			{ id },
+			{ $push: { orders: order } },
+			{ new: true, upsert: true, setDefaultsOnInsert: true }
+		).lean();
+		res.json(user.orders).status(201);
+	} catch (error) {
+		console.error(error);
+		res.status(500);
 	}
 });
 

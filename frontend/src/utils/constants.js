@@ -43,9 +43,9 @@ export const services = [
 	},
 ];
 
-const HOST = "http://localhost";
-const PRODUCTS_PORT = ":3001";
-const USER_PORT = ":3002";
+const HOST = "http://192.168.99.101";
+const PRODUCTS_PORT = ":30001";
+const USER_PORT = ":30002";
 const USER = "/user";
 const CART = "/cart";
 const PRODUCTS = "/products";
