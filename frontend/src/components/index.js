@@ -22,7 +22,7 @@ import CartColumns from "./CartColumns";
 import CartButton from "./CartButton";
 import CartItem from "./CartItem";
 import CartTotals from "./CartTotals";
-
+import StripeCheckout from "./StripeCheckout";
 
 export {
 	Navbar,
@@ -35,7 +35,7 @@ export {
 	FeaturedProducts,
 	Error,
 	Loading,
-    ProductImages,
+	ProductImages,
 	Stars,
 	AddToCart,
 	AmountButtons,
@@ -48,5 +48,6 @@ export {
 	CartColumns,
 	CartButton,
 	CartItem,
-	CartTotals
+	CartTotals,
+	StripeCheckout,
 };

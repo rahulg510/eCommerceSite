@@ -24,7 +24,11 @@ const ListView = ({ products }) => {
 								</Link>
 							</div>
 							<div>
-								<h4>{product.name}</h4>
+								<Link
+									to={`/products/${product._id}`}
+								>
+									<h4 style={{color: "black"}}>{product.name}</h4>
+								</Link>
 								<h5 className="price">
 									{formatPrice(product.price)}
 								</h5>
@@ -52,7 +56,7 @@ const Wrapper = styled.section`
 		position: relative;
 		border-radius: var(--radius);
 	}
-	
+
 	.link {
 		position: absolute;
 		top: 50%;
@@ -79,10 +83,10 @@ const Wrapper = styled.section`
 	.container:hover .link {
 		opacity: 1;
 	}
-    .product-name {
-        color: black;
-        text-decoration: underline;
-    }
+	.product-name {
+		color: black;
+		text-decoration: underline;
+	}
 	img {
 		width: 100%;
 		display: block;

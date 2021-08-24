@@ -49,6 +49,8 @@ const USER_PORT = ":30002";
 const USER = "/user";
 const CART = "/cart";
 const PRODUCTS = "/products";
+const SINGLE_PRODUCT = '/single-product'
 
 export const PRODUCTS_URL = HOST + PRODUCTS_PORT + PRODUCTS;
+export const SINGLE_PRODUCT_URL = HOST + PRODUCTS_PORT + PRODUCTS + SINGLE_PRODUCT;
 export const CART_URL = HOST + USER_PORT + USER + CART;

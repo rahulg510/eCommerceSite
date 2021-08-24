@@ -6,26 +6,26 @@ import reportWebVitals from "./reportWebVitals";
 import { ProductsProvider } from "./context/products_context";
 import { FilterProvider } from "./context/filter_context";
 import { CartProvider } from "./context/cart_context";
-import { Auth0Provider} from "@auth0/auth0-react";
-import authConfig from "./Auth0Config.json";
+import { Auth0Provider } from "@auth0/auth0-react";
+
 ReactDOM.render(
 	<React.StrictMode>
 		<Auth0Provider
-			domain={authConfig.DOMAIN}
-			clientId={authConfig.CLIENT_ID}
-			redirectUri={authConfig.REDIRECT}
-			audience={authConfig.AUDIENCE}
-			scope={authConfig.SCOPE}
+			domain={process.env.REACT_APP_DOMAIN}
+			clientId={process.env.REACT_APP_CLIENT_ID}
+			redirectUri={process.env.REACT_APP_REDIRECT}
+			audience={process.env.REACT_APP_AUDIENCE}
+			scope={process.env.REACT_APP_SCOPE}
 			useRefreshTokens={true}
-			cacheLocation={authConfig.CACHE_LOCATION}
+			cacheLocation={process.env.REACT_APP_CACHE_LOCATION}
 		>
-				<ProductsProvider>
-					<FilterProvider>
-						<CartProvider>
-							<App />
-						</CartProvider>
-					</FilterProvider>
-				</ProductsProvider>
+			<ProductsProvider>
+				<FilterProvider>
+					<CartProvider>
+						<App />
+					</CartProvider>
+				</FilterProvider>
+			</ProductsProvider>
 		</Auth0Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
